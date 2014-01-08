@@ -24,17 +24,25 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class HomeActivity extends Activity {
 
 	private Button mBtnShow, mBtnCreate, mBtnPlay;
 	private TextView mTextView;
 	private ImageView mImageView;
-	int numberOfShots = 2;
+	static String gif_path = "file:/"
+			+ Environment.getExternalStorageDirectory().getAbsolutePath()
+			+ "/gif_test/tmp6.gif";
+
+	int numberOfShots = 5;
 	int shot = 0;
+	int height;
+	int width;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +51,10 @@ public class HomeActivity extends Activity {
 		initView();
 	}
 
+	/**
+	 * @author myname2
+	 */
 	private void initView() {
-		numberOfShots = 2;
 		shot = 0;
 		mBtnShow = (Button) findViewById(R.id.button_show);
 		mImageView = (ImageView) findViewById(R.id.image_view);
@@ -61,7 +71,8 @@ public class HomeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				createGif();
+				gif_path = "file:/" + createGif();
+				initView();
 			}
 		});
 		mBtnPlay = (Button) findViewById(R.id.button_play);
@@ -69,13 +80,17 @@ public class HomeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				playGif();
+				Intent intentDisplayGif = new Intent(HomeActivity.this,
+						DisplayGifActivity.class);
+				HomeActivity.this.startActivity(intentDisplayGif);
 			}
 		});
-
 	}
 
-	public byte[] generateGIF() {
+	/**
+	 * @author myname2
+	 */
+	public byte[] generateGIF(int number) {
 		// ImageAdapter adapter;
 		// ArrayList<Bitmap> bitmaps = adapter.getBitmapArray();
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -85,22 +100,34 @@ public class HomeActivity extends Activity {
 		encoder.setDelay(500);
 		encoder.setRepeat(0);
 		encoder.start(bos);
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < number; i++) {
 			String imgPath = Environment.getExternalStorageDirectory()
 					.getAbsolutePath() + "/gif_tmp/tmp" + i + ".jpg";
 			Bitmap bmp = BitmapFactory.decodeFile(imgPath, option);
+			if (i == 0){
+				height = bmp.getHeight();
+				width = bmp.getWidth();
+			}
+			else if ((bmp.getHeight() != height) || (bmp.getWidth() != width)){
+				Toast.makeText(getApplicationContext(), "There are atlease 1 image with diffrent size with others. U must use images with same size", Toast.LENGTH_SHORT);
+				if(android.os.Build.VERSION.SDK_INT >= 11){
+					super.recreate();
+				}else{
+					startActivity(getIntent());
+					finish();
+				}
+			}
 			encoder.addFrame(bmp);
 			Log.i("generate", "add Frame" + imgPath);
 		}
-
-		// for (Bitmap bitmap : bitmaps) {
-		// encoder.addFrame(bitmap);
-		// }
 		encoder.finish();
 		return bos.toByteArray();
 	}
 
-	private void createGif() {
+	/**
+	 * @author myname2
+	 */
+	private String createGif() {
 		FileOutputStream outStream = null;
 		File tempPhoto = null;
 		int number = 0;
@@ -118,17 +145,19 @@ public class HomeActivity extends Activity {
 					.getExternalStorageDirectory().getAbsolutePath()
 					+ "/gif_test/tmp" + number + ".gif");
 			Log.i("info", "prepare to generate");
-			outStream.write(generateGIF());
+			outStream.write(generateGIF(numberOfShots));
 			outStream.close();
+			deleteTempFile(numberOfShots);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return Environment.getExternalStorageDirectory().getAbsolutePath()
+				+ "/gif_test/tmp" + number + ".gif";
 	}
 
-	private void playGif() {
-
-	}
-
+	/**
+	 * @author myname2
+	 */
 	private void openCameraToTakePicture() {
 		Intent intent = new Intent(
 				android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
@@ -137,11 +166,18 @@ public class HomeActivity extends Activity {
 		startActivityForResult(intent, 0);
 	}
 
-	public void deleteTempFile() {
-		File rootFolder = Environment.getExternalStorageDirectory();
-		File temFile = new File(rootFolder.getAbsolutePath() + "/tmp.jpg");
-		if (temFile.exists()) {
-			temFile.delete();
+	/**
+	 * @author myname2
+	 * @param numberOfFiles number of files need to be deleted
+	 */
+	public void deleteTempFile(int numberOfFiles) {
+		for (int i = 0; i < numberOfFiles; i++) {
+			String imgPath = Environment.getExternalStorageDirectory()
+					.getAbsolutePath() + "/gif_tmp/tmp" + i + ".jpg";
+			File temFile = new File(imgPath);
+			if (temFile.exists()) {
+				temFile.delete();
+			}
 		}
 	}
 
@@ -174,9 +210,13 @@ public class HomeActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// if (resultCode != RESULT_OK) {
-		// return;
-		// }
+		if (resultCode != RESULT_OK) {
+			openCameraToTakePicture();
+		} else {
+			shot++;
+			if (shot < numberOfShots)
+				openCameraToTakePicture();
+		}
 		//
 		// // get Image path
 		// String imgPath = Environment.getExternalStorageDirectory()
@@ -185,9 +225,6 @@ public class HomeActivity extends Activity {
 		// if (bmp != null) {
 		// mImageView.setImageBitmap(bmp);
 		// }
-		shot++;
-		if (shot < numberOfShots)
-			openCameraToTakePicture();
 	}
 
 }

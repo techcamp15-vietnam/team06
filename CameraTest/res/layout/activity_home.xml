@@ -32,9 +32,17 @@
         android:id="@+id/button_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
+        android:layout_above="@+id/button_create"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:text="Play GIF" />
 
+    <FrameLayout
+        android:id="@+id/preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp" >
+    </FrameLayout>
+    
 </RelativeLayout>
