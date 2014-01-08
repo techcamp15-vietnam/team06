@@ -15,7 +15,6 @@ public class IndexActivity extends Activity {
 
 	private Button btNormal;
 	private Button btGif;
-	private Button btShare;
 	private Button btLiveShare;
 
 	@Override
@@ -34,7 +33,6 @@ public class IndexActivity extends Activity {
 	public void initView() {		
 		btNormal = (Button) findViewById(R.id.btNormal);
 		btGif = (Button) findViewById(R.id.btGif);
-		btShare = (Button) findViewById(R.id.btShare);
 		btLiveShare = (Button) findViewById(R.id.btLiveShare);
 
 		View.OnClickListener handler = new View.OnClickListener() {
@@ -57,16 +55,6 @@ public class IndexActivity extends Activity {
 					Log.i("Content ", "Animation Mode");
 				}
 				
-				if (v == btShare) {
-					Toast toast = Toast.makeText(getApplicationContext(),
-							"Share Choosen", Toast.LENGTH_SHORT);
-					toast.show();
-					
-//					Intent intentShare = new Intent(IndexActivity.this,AnimationActivity.class);
-//					IndexActivity.this.startActivity(intentShare);
-//					Log.i("Content ", "Share Mode");
-				}
-				
 				if (v == btLiveShare) {
 					Toast toast = Toast.makeText(getApplicationContext(),
 							"Live Share Choosen", Toast.LENGTH_SHORT);
@@ -81,6 +69,6 @@ public class IndexActivity extends Activity {
 
 		btNormal.setOnClickListener(handler);
 		btGif.setOnClickListener(handler);
-		btShare.setOnClickListener(handler);
+		btLiveShare.setOnClickListener(handler);
 	}
 }

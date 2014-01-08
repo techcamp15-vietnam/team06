@@ -2,12 +2,9 @@ package com.example.activity;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
 
 import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.ContentValues;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,11 +22,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.example.control.BluetoothShare;
 import com.example.testui.R;
 
 public class AnimationActivity extends Activity {
-	
+
 	private Button btTakePic;
 	private Button btSwitch;
 	private Button btShare;
@@ -45,24 +40,26 @@ public class AnimationActivity extends Activity {
 		setContentView(R.layout.animation_mode);
 		initVew();
 	}
-	
+
 	public void initVew() {
-		btTakePic = (Button)findViewById(R.id.button_take_picture);
-		btSwitch = (Button)findViewById(R.id.button_switch_camera);
-		btShare = (Button)findViewById(R.id.btShareInAnination);
-		spinner = (Spinner)findViewById(R.id.spinShooseNumofPic);
+		btTakePic = (Button) findViewById(R.id.button_take_picture);
+		btSwitch = (Button) findViewById(R.id.button_switch_camera);
+		btShare = (Button) findViewById(R.id.btShareInAnination);
+		spinner = (Spinner) findViewById(R.id.spinShooseNumofPic);
 		ivShow = (ImageView) findViewById(R.id.ivShow);
-		
+
 		btShare.setEnabled(false);
-		
-		noOfPics = getResources().getStringArray(R.array.gif_number_of_pictures);
+
+		noOfPics = getResources()
+				.getStringArray(R.array.gif_number_of_pictures);
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, noOfPics);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
-		
-        //Working with spinner to choose number of picture
-        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+				android.R.layout.simple_spinner_item, noOfPics);
+		dataAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(dataAdapter);
+
+		// Working with spinner to choose number of picture
+		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
@@ -75,31 +72,29 @@ public class AnimationActivity extends Activity {
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-        	
-        	
+
 		});
-        System.out.print(numberOfPics);
-        
-        //Take picture Button
-        btTakePic.setOnClickListener(new OnClickListener() {
-			
+		System.out.print(numberOfPics);
+
+		// Take picture Button
+		btTakePic.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				openCameraToTakePicture();
 			}
 		});
-        
-        
-        //Switch camera Button
-        btSwitch.setOnClickListener(new OnClickListener() {
-			
+
+		// Switch camera Button
+		btSwitch.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
@@ -110,61 +105,57 @@ public class AnimationActivity extends Activity {
 		getMenuInflater().inflate(R.menu.second, menu);
 		return true;
 	}
-	
 
 	// For Testing share Bluetooth
 	public void deleteTempFile() {
 		File rootFolder = Environment.getExternalStorageDirectory();
 		File temFile = new File(rootFolder.getAbsolutePath() + "/tmp.jpg");
-		if(temFile.exists()) {
+		if (temFile.exists()) {
 			temFile.delete();
 		}
-	} 
-	
-	private void openCameraToTakePicture(){
-		Intent intent=new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+	}
+
+	private void openCameraToTakePicture() {
+		Intent intent = new Intent(
+				android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 		this.deleteTempFile();
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, this.getPhotoUri());		
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, this.getPhotoUri());
 		startActivityForResult(intent, 0);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
-		if(resultCode != RESULT_OK) {
+		if (resultCode != RESULT_OK) {
 			return;
 		}
-		
-		String imaPath = Environment.getExternalStorageDirectory() + File.separator + "tmp.jpg";
+
+		String imaPath = Environment.getExternalStorageDirectory()
+				+ File.separator + "tmp.jpg";
 		Bitmap bmp = BitmapFactory.decodeFile(imaPath);
-		if(bmp != null) {
+		if (bmp != null) {
 			ivShow.setImageBitmap(bmp);
 			btShare.setEnabled(true);
-			
+
 			btShare.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					Log.i("info", getPhotoUri().toString());
-					Log.i("info", getdeviceAddress());
-					
-					
-					ContentValues values = new ContentValues();
-					Log.i("info", "1");
-					values.put(BluetoothShare.URI, "content://" + getPhotoUri());
-					Log.i("info", "2");
-					values.put(BluetoothShare.DESTINATION, getdeviceAddress());
-					Log.i("info", "3");
-					values.put(BluetoothShare.DIRECTION, BluetoothShare.DIRECTION_OUTBOUND);
-					Log.i("info", "4");
-					Long ts = System.currentTimeMillis();
-					Log.i("info", "5");
-					values.put(BluetoothShare.TIMESTAMP, ts);
+					File file = new File(Environment.getExternalStorageDirectory().
+				            getPath() + "/tmp.jpg");
+					Intent i = new Intent(android.content.Intent.ACTION_SEND);
+					i.setType("image/*");
+					i.setComponent(new ComponentName("com.android.bluetooth",
+							"com.android.bluetooth.opp.BluetoothOppLauncherActivity"));
+					i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+					startActivity(i);
 				}
 			});
-			
+
 		}
 	}
+	
+	// End Testing Share vis Bluetooth
 	
 	public Uri getPhotoUri() {
 		File rootFolder = Environment.getExternalStorageDirectory();
@@ -180,29 +171,4 @@ public class AnimationActivity extends Activity {
 			return Uri.EMPTY;
 		}
 	}
-	
-	//Exit testing ShareBluetooth
-	
-	public String getdeviceAddress() {
-		BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-		if (mBluetoothAdapter == null) {
-		    // Device does not support Bluetooth
-		}
-		if (!mBluetoothAdapter.isEnabled()) {
-		    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-		    startActivityForResult(enableBtIntent,1);
-		}
-		Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-		// If there are paired devices
-		if (pairedDevices.size() > 0) {
-		    // Loop through paired devices
-		    for (BluetoothDevice device : pairedDevices) {
-		        // Add the name and address to an array adapter to show in a ListView
-//		        mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
-		    	return device.getAddress();
-		    }
-		}
-		return null;
-	}
-
 }

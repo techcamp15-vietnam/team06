@@ -4,41 +4,37 @@
     android:layout_height="match_parent"
     tools:context=".IndexActivity" >
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/background" />
+
     <Button
         android:id="@+id/btNormal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="49dp"
         android:layout_gravity="center"
+        android:layout_marginTop="60dp"
         android:text="@string/btNormal" />
-        
+
     <Button
         android:id="@+id/btGif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/btNormal"
-        android:layout_marginTop="54dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
         android:text="@string/btGif" />
 
     <Button
-        android:id="@+id/btShare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btGif"
-        android:layout_marginTop="59dp"
-        android:layout_centerHorizontal="true"
-        android:text="@string/btShare" />
-
-    <Button
         android:id="@+id/btLiveShare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btShare"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_alignLeft="@+id/btGif"
+        android:layout_below="@+id/btGif"
+        android:layout_marginTop="50dp"
         android:text="@string/btLiveShare" />
 
 </RelativeLayout>
