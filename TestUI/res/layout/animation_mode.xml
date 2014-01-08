@@ -25,13 +25,13 @@
         android:id="@+id/zoom_control"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button"
+        android:layout_above="@+id/bottomIcons"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
         android:visibility="visible" />
 
     <RelativeLayout
-        android:id="@+id/button"
+        android:id="@+id/bottomIcons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -57,11 +57,10 @@
             android:id="@+id/btShareInAnination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/button_shape"
-            android:text="@string/btShare" />
+            android:layout_centerInParent="true"
+            android:background="@drawable/share" />
     </RelativeLayout>
-    
+
     <ImageView
         android:id="@+id/ivShow"
         android:layout_width="wrap_content"

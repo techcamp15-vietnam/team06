@@ -1,21 +1,31 @@
 package com.example.activity;
 
+import com.example.control.ScreenCapture;
 import com.example.testui.R;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
+/**
+Index
+@param MainTheme
+@author B06 Pham Binh
+*/
 public class IndexActivity extends Activity {
 
 	private Button btNormal;
 	private Button btGif;
 	private Button btLiveShare;
+	private ImageView ivCapture;
+	private RelativeLayout loIndex;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +40,18 @@ public class IndexActivity extends Activity {
 		return true;
 	}
 
+	/**
+	Index
+	@param None
+	@author B06 Pham Binh
+	Use to Creat action for button.
+	*/
 	public void initView() {		
 		btNormal = (Button) findViewById(R.id.btNormal);
 		btGif = (Button) findViewById(R.id.btGif);
 		btLiveShare = (Button) findViewById(R.id.btLiveShare);
+		ivCapture = (ImageView) findViewById(R.id.ivCapture);
+		loIndex = (RelativeLayout) findViewById(R.id.loIndex);
 
 		View.OnClickListener handler = new View.OnClickListener() {
 
@@ -52,17 +70,16 @@ public class IndexActivity extends Activity {
 					// doStuff
 					Intent intentGif = new Intent(IndexActivity.this,AnimationActivity.class);
 					IndexActivity.this.startActivity(intentGif);
-					Log.i("Content ", "Animation Mode");
 				}
 				
 				if (v == btLiveShare) {
-					Toast toast = Toast.makeText(getApplicationContext(),
-							"Live Share Choosen", Toast.LENGTH_SHORT);
-					toast.show();
-
-//					Intent intentShare = new Intent(IndexActivity.this,AnimationActivity.class);
-//					IndexActivity.this.startActivity(intentShare);
-//					Log.i("Content ", "Share Mode");
+					btLiveShare.setVisibility(View.INVISIBLE);
+					Bitmap bitmap;
+					ScreenCapture screenCapture = new ScreenCapture();
+					bitmap = screenCapture.getBitmapOfView(ivCapture);
+					bitmap = Bitmap.createBitmap(bitmap, 0, 130, loIndex.getWidth(), loIndex.getHeight()-30);
+					screenCapture.createImageFromBitmap(bitmap);
+					btLiveShare.setVisibility(View.VISIBLE);
 				}
 			}
 		};

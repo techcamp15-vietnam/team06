@@ -24,6 +24,11 @@ import android.widget.Spinner;
 
 import com.example.testui.R;
 
+/**
+Index
+@param Animation Mode
+@author B06 Pham Binh
+*/
 public class AnimationActivity extends Activity {
 
 	private Button btTakePic;
@@ -41,6 +46,11 @@ public class AnimationActivity extends Activity {
 		initVew();
 	}
 
+	/**
+	Index
+	@param Creat action for button
+	@author B06 Pham Binh
+	*/
 	public void initVew() {
 		btTakePic = (Button) findViewById(R.id.button_take_picture);
 		btSwitch = (Button) findViewById(R.id.button_switch_camera);
@@ -123,6 +133,11 @@ public class AnimationActivity extends Activity {
 		startActivityForResult(intent, 0);
 	}
 
+	/**
+	Index
+	@param After take a picture, share it!
+	@author B06 Pham Binh
+	*/
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -134,8 +149,9 @@ public class AnimationActivity extends Activity {
 				+ File.separator + "tmp.jpg";
 		Bitmap bmp = BitmapFactory.decodeFile(imaPath);
 		if (bmp != null) {
-			ivShow.setImageBitmap(bmp);
 			btShare.setEnabled(true);
+			ivShow.setImageBitmap(bmp);
+
 
 			btShare.setOnClickListener(new OnClickListener() {
 
@@ -151,11 +167,10 @@ public class AnimationActivity extends Activity {
 					startActivity(i);
 				}
 			});
-
-		}
+		}		
 	}
 	
-	// End Testing Share vis Bluetooth
+	// End Testing Share via Bluetooth
 	
 	public Uri getPhotoUri() {
 		File rootFolder = Environment.getExternalStorageDirectory();

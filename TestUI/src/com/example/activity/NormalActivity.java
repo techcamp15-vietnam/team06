@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
+/**
+Index
+@param Normal Mode
+@author B06 Pham Binh
+*/
 public class NormalActivity extends Activity {
 
 	@Override
