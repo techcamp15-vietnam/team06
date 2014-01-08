@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView 
-        android:background="@drawable/background"
+    <TextView
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_width="fill_parent"/>
-    
+        android:background="@drawable/background" />
+
     <FrameLayout
         android:id="@+id/preview"
         android:layout_width="wrap_content"
@@ -16,21 +16,19 @@
 
         <Spinner
             android:id="@+id/spinShooseNumofPic"
-            android:layout_width="154dp"
-            android:layout_height="wrap_content" 
-            android:prompt="@string/spiner"/>
-
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:prompt="@string/spiner" />
     </FrameLayout>
 
-    <ZoomControls 
+    <ZoomControls
         android:id="@+id/zoom_control"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
-        android:visibility="visible"/>
-
+        android:visibility="visible" />
 
     <RelativeLayout
         android:id="@+id/button"
@@ -45,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
-            android:text="@string/take_picture" />
+            android:background="@drawable/take_pic" />
 
         <Button
             android:id="@+id/button_switch_camera"
@@ -53,23 +51,23 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:text="@string/switch_camera" />
-    </RelativeLayout>
+            android:background="@drawable/change" />
 
+        <Button
+            android:id="@+id/btShareInAnination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_shape"
+            android:text="@string/btShare" />
+    </RelativeLayout>
+    
     <ImageView
         android:id="@+id/ivShow"
-        android:contentDescription="@string/spiner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
-
-    <Button
-        android:id="@+id/btShareInAnination"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/zoom_control"
-        android:layout_centerHorizontal="true"
-        android:text="@string/btShare" />
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/spiner" />
 
 </RelativeLayout>
