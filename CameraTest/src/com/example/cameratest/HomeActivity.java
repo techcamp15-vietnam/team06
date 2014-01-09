@@ -41,8 +41,8 @@ public class HomeActivity extends Activity {
 
 	int numberOfShots = 5;
 	int shot = 0;
-	int height;
-	int width;
+	int heightOfGif = 0;
+	int widthOfGif = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +71,21 @@ public class HomeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				gif_path = "file:/" + createGif();
-				initView();
+				String temp_path = createGif();
+				if (temp_path != null) {
+					gif_path = "file:/" + temp_path;
+					// initView();
+					Intent intentDisplayGif = new Intent(HomeActivity.this,
+							DisplayGifActivity.class);
+					HomeActivity.this.startActivity(intentDisplayGif);
+				} else {
+					Toast toast = Toast
+							.makeText(
+									getApplicationContext(),
+									"A photo has different size with others. All photo must have same size",
+									Toast.LENGTH_LONG);
+					toast.show();
+				}
 			}
 		});
 		mBtnPlay = (Button) findViewById(R.id.button_play);
@@ -104,24 +117,39 @@ public class HomeActivity extends Activity {
 			String imgPath = Environment.getExternalStorageDirectory()
 					.getAbsolutePath() + "/gif_tmp/tmp" + i + ".jpg";
 			Bitmap bmp = BitmapFactory.decodeFile(imgPath, option);
-			if (i == 0){
-				height = bmp.getHeight();
-				width = bmp.getWidth();
-			}
-			else if ((bmp.getHeight() != height) || (bmp.getWidth() != width)){
-				Toast.makeText(getApplicationContext(), "There are atlease 1 image with diffrent size with others. U must use images with same size", Toast.LENGTH_SHORT);
-				if(android.os.Build.VERSION.SDK_INT >= 11){
-					super.recreate();
-				}else{
-					startActivity(getIntent());
-					finish();
-				}
+			if (i == 0) {
+				heightOfGif = bmp.getHeight();
+				widthOfGif = bmp.getWidth();
+				Log.i("info", "height = " + heightOfGif + ", width = "
+						+ widthOfGif);
+			} else if ((bmp.getHeight() != heightOfGif)
+					|| (bmp.getWidth() != widthOfGif)) {
+				Log.i("info", "wrong size");
+				Log.i("info", "restart activity");
+				// restartActivity();
+				return null;
 			}
 			encoder.addFrame(bmp);
-			Log.i("generate", "add Frame" + imgPath);
+			Log.i("generate", "added frame " + imgPath);
+			File temFile = new File(imgPath);
+			if (temFile.exists()) {
+				Log.i("delete", "deleted " + imgPath);
+				temFile.delete();
+			}
 		}
 		encoder.finish();
 		return bos.toByteArray();
+	}
+
+	/**
+	 * @author 6-A Nguyen Tuan Hai
+	 * @param
+	 * @description
+	 */
+	void restartActivity() {
+		finish();
+		Intent mIntent = new Intent(HomeActivity.this, HomeActivity.class);
+		startActivity(mIntent);
 	}
 
 	/**
@@ -138,21 +166,24 @@ public class HomeActivity extends Activity {
 				number++;
 				tempPhoto = new File(Environment.getExternalStorageDirectory()
 						.getAbsolutePath() + "/gif_test/tmp" + number + ".gif");
-				System.out.println(number);
 			}
 			tempPhoto.delete();
 			outStream = new FileOutputStream(Environment
 					.getExternalStorageDirectory().getAbsolutePath()
 					+ "/gif_test/tmp" + number + ".gif");
 			Log.i("info", "prepare to generate");
-			outStream.write(generateGIF(numberOfShots));
-			outStream.close();
-			deleteTempFile(numberOfShots);
+			byte[] temp = generateGIF(numberOfShots);
+			if (temp != null) {
+				outStream.write(temp);
+				outStream.close();
+				deleteTempFile(numberOfShots);
+				return Environment.getExternalStorageDirectory()
+						.getAbsolutePath() + "/gif_test/tmp" + number + ".gif";
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Environment.getExternalStorageDirectory().getAbsolutePath()
-				+ "/gif_test/tmp" + number + ".gif";
+		return null;
 	}
 
 	/**
@@ -168,7 +199,8 @@ public class HomeActivity extends Activity {
 
 	/**
 	 * @author myname2
-	 * @param numberOfFiles number of files need to be deleted
+	 * @param numberOfFiles
+	 *            number of files need to be deleted
 	 */
 	public void deleteTempFile(int numberOfFiles) {
 		for (int i = 0; i < numberOfFiles; i++) {
@@ -181,6 +213,11 @@ public class HomeActivity extends Activity {
 		}
 	}
 
+	/**
+	 * @author 6-A Nguyen Tuan Hai
+	 * @param
+	 * @description
+	 */
 	public Uri getPhotoUri() {
 		int number = 0;
 		File rootFolder = Environment.getExternalStorageDirectory();
@@ -188,9 +225,7 @@ public class HomeActivity extends Activity {
 				+ number + ".jpg");
 		try {
 			while (tempPhoto.exists()) {
-				number++;
-				tempPhoto = new File(rootFolder.getAbsolutePath()
-						+ "/gif_tmp/tmp" + number + ".jpg");
+				tempPhoto.delete();
 			}
 			tempPhoto.createNewFile();
 			Uri tempPhotoUri = Uri.fromFile(tempPhoto);
@@ -216,6 +251,24 @@ public class HomeActivity extends Activity {
 			shot++;
 			if (shot < numberOfShots)
 				openCameraToTakePicture();
+			else {
+				String temp_path = createGif();
+				if (temp_path != null) {
+					gif_path = "file:/" + temp_path;
+					// initView();
+					Intent intentDisplayGif = new Intent(HomeActivity.this,
+							DisplayGifActivity.class);
+					HomeActivity.this.startActivity(intentDisplayGif);
+				} else {
+					Toast toast = Toast
+							.makeText(
+									getApplicationContext(),
+									"A photo has different size with others. All photo must have same size",
+									Toast.LENGTH_LONG);
+					toast.show();
+				}
+				shot = 0;
+			}
 		}
 		//
 		// // get Image path
@@ -226,5 +279,4 @@ public class HomeActivity extends Activity {
 		// mImageView.setImageBitmap(bmp);
 		// }
 	}
-
 }
