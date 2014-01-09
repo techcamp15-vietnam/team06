@@ -29,8 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.activity.NormalActivity" ></activity>
-		<activity android:name="com.example.activity.AnimationActivity" ></activity>
+        <activity android:name="com.example.activity.AnimationActivity" ></activity>
+		<activity android:name="com.example.activity.NormalActivity" ></activity>
     </application>
 
 </manifest>

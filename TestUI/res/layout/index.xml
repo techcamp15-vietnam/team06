@@ -51,13 +51,13 @@
 
     <ImageView
         android:id="@+id/ivCapture"
-        android:contentDescription="@string/app_name"
         android:layout_width="130dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="3dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
         android:scaleType="fitXY" />
 
 </RelativeLayout>

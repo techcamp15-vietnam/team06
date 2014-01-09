@@ -1,18 +1,17 @@
 package com.example.activity;
 
-import com.example.control.ScreenCapture;
-import com.example.testui.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.example.control.ScreenCapture;
+import com.example.testui.R;
 
 /**
 Index
@@ -55,30 +54,32 @@ public class IndexActivity extends Activity {
 
 		View.OnClickListener handler = new View.OnClickListener() {
 
-			public void onClick(View v) {
-
+			public void onClick(View v) {		
+				
 				// Normal mode
 				if (v == btNormal) {
 					// doStuff
 					Intent intentNormal = new Intent(IndexActivity.this,NormalActivity.class);
 					IndexActivity.this.startActivity(intentNormal);
-					Log.i("Content ", "Normal Mode");
 				}
 				
 				// Making animation pictures
 				if (v == btGif) {
 					// doStuff
+					btGif.setBackgroundResource(R.drawable.button_shape_after);
 					Intent intentGif = new Intent(IndexActivity.this,AnimationActivity.class);
 					IndexActivity.this.startActivity(intentGif);
 				}
 				
 				if (v == btLiveShare) {
 					btLiveShare.setVisibility(View.INVISIBLE);
+					
 					Bitmap bitmap;
 					ScreenCapture screenCapture = new ScreenCapture();
 					bitmap = screenCapture.getBitmapOfView(ivCapture);
 					bitmap = Bitmap.createBitmap(bitmap, 0, 130, loIndex.getWidth(), loIndex.getHeight()-30);
 					screenCapture.createImageFromBitmap(bitmap);
+					
 					btLiveShare.setVisibility(View.VISIBLE);
 				}
 			}
