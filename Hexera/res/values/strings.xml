@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Hexera</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="btNormal">Normal mode</string>
+    <string name="btGif">Animation mode</string>
+    <string name="btShare">Share NOW!</string>
+    <string name="btLiveShare">Live share mode</string>
+    <string name="title_activity_second">SecondActivity</string>
+    <string name="take_picture">Take Picture</string>
+    <string name="switch_camera">Switch Camera</string>
+    <string name="spiner">Number of pictures that you need to shot: </string>
+
+    <string-array name="gif_number_of_pictures">
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+    </string-array>
+    <string name="gif_create">Creat GIF</string>
+    <string name="gif_show">Play GIF</string>
+
+</resources>

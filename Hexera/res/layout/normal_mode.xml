@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/background" />
+
+    <LinearLayout
+        android:id="@+id/bottomIcons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="5dp" >
+
+        <Button
+            android:id="@+id/button_take_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/take_pic" />
+
+        <Button
+            android:id="@+id/btShareInAnination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/share" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivShow"
+        android:background="@drawable/preview"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_above="@+id/bottomIcons"
+        android:layout_alignParentTop="true"
+        android:padding="1dp"
+        android:contentDescription="@string/spiner" />
+
+</RelativeLayout>

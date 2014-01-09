@@ -1,0 +1,86 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/background" />
+    
+    <LinearLayout
+        android:id="@+id/previewSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true" >
+
+        <TextView
+            android:id="@+id/tvSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spiner"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spinShooseNumofPic"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:prompt="@string/spiner" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/app_name" />
+
+    <FrameLayout
+        android:id="@+id/preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp" >
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" >
+
+        <Button
+            android:id="@+id/button_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/take_pic" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_show"
+            android:layout_centerHorizontal="true" >
+
+            <Button
+                android:id="@+id/button_create"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_shape"
+                android:text="@string/gif_create" />
+
+            <Button
+                android:id="@+id/button_play"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/button_shape"
+                android:text="@string/gif_show" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
