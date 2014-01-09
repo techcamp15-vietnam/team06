@@ -8,27 +8,25 @@
         android:layout_height="fill_parent"
         android:background="@drawable/background" />
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/preview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true" >
+
+        <TextView
+            android:id="@+id/tvSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spiner"
+            android:textSize="18sp" />
 
         <Spinner
             android:id="@+id/spinShooseNumofPic"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:prompt="@string/spiner" />
-    </FrameLayout>
-
-    <ZoomControls
-        android:id="@+id/zoom_control"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:visibility="visible" />
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/button"
@@ -38,20 +36,12 @@
         android:layout_marginBottom="5dp" >
 
         <Button
-            android:id="@+id/button_take_picture"
+            android:id="@+id/btCapture"
+            android:background="@drawable/take_pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:text="@string/take_picture" />
-
-        <Button
-            android:id="@+id/button_switch_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:text="@string/switch_camera" />
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp" />
     </RelativeLayout>
 
 </RelativeLayout>

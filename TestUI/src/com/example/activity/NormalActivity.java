@@ -21,10 +21,11 @@ import android.widget.ImageView;
 import com.example.testui.R;
 
 /**
-Normal mode
-@param None
-@author B06 Pham Binh
-*/
+ * Normal mode
+ * 
+ * @param None
+ * @author B06 Pham Binh
+ */
 public class NormalActivity extends Activity {
 
 	private Button btTakePic;
@@ -39,20 +40,17 @@ public class NormalActivity extends Activity {
 	}
 
 	/**
-	Normal Mode
-	@param Creat action for button
-	@author B06 Pham Binh
-	*/
+	 * Normal Mode
+	 * 
+	 * @param Creat
+	 *            action for button
+	 * @author B06 Pham Binh
+	 */
 	public void initVew() {
 		btTakePic = (Button) findViewById(R.id.button_take_picture);
-		
 		btShare = (Button) findViewById(R.id.btShareInAnination);
-		
 		ivShow = (ImageView) findViewById(R.id.ivShow);
-
 		btShare.setEnabled(false);
-
-		
 
 		// Take picture Button
 		btTakePic.setOnClickListener(new OnClickListener() {
@@ -65,7 +63,7 @@ public class NormalActivity extends Activity {
 		});
 
 		// Switch camera Button
-		
+
 	}
 
 	@Override
@@ -92,10 +90,12 @@ public class NormalActivity extends Activity {
 	}
 
 	/**
-	Index
-	@param After take a picture, share it!
-	@author B06 Pham Binh
-	*/
+	 * Index
+	 * 
+	 * @param After
+	 *            take a picture, share it!
+	 * @author B06 Pham Binh
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -110,13 +110,13 @@ public class NormalActivity extends Activity {
 			btShare.setEnabled(true);
 			ivShow.setImageBitmap(bmp);
 
-
 			btShare.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					File file = new File(Environment.getExternalStorageDirectory().
-				            getPath() + "/tmp.jpg");
+					File file = new File(Environment
+							.getExternalStorageDirectory().getPath()
+							+ "/tmp.jpg");
 					Intent i = new Intent(android.content.Intent.ACTION_SEND);
 					i.setType("image/*");
 					i.setComponent(new ComponentName("com.android.bluetooth",
@@ -125,9 +125,9 @@ public class NormalActivity extends Activity {
 					startActivity(i);
 				}
 			});
-		}		
+		}
 	}
-	
+
 	public Uri getPhotoUri() {
 		File rootFolder = Environment.getExternalStorageDirectory();
 		File tempPhoto = new File(rootFolder.getAbsolutePath() + "/tmp.jpg");

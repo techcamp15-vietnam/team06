@@ -38,6 +38,7 @@
         android:layout_height="200dp"
         android:layout_above="@+id/bottomIcons"
         android:layout_alignParentTop="true"
+        android:padding="1dp"
         android:contentDescription="@string/spiner" />
 
 </RelativeLayout>

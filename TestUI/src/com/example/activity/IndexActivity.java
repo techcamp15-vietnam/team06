@@ -26,6 +26,17 @@ public class IndexActivity extends Activity {
 	private ImageView ivCapture;
 	private RelativeLayout loIndex;
 
+	
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		btGif.setBackgroundResource(R.drawable.button_shape);
+		btNormal.setBackgroundResource(R.drawable.button_shape);
+		btLiveShare.setBackgroundResource(R.drawable.button_shape);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,20 +69,21 @@ public class IndexActivity extends Activity {
 				
 				// Normal mode
 				if (v == btNormal) {
-					// doStuff
+					btNormal.setBackgroundResource(R.drawable.button_shape_after);
 					Intent intentNormal = new Intent(IndexActivity.this,NormalActivity.class);
 					IndexActivity.this.startActivity(intentNormal);
 				}
 				
-				// Making animation pictures
+				// Animation Mode
 				if (v == btGif) {
-					// doStuff
 					btGif.setBackgroundResource(R.drawable.button_shape_after);
-					Intent intentGif = new Intent(IndexActivity.this,AnimationActivity.class);
+					Intent intentGif = new Intent(IndexActivity.this,HomeActivity.class);
 					IndexActivity.this.startActivity(intentGif);
 				}
 				
+				// Share Mode 
 				if (v == btLiveShare) {
+					btLiveShare.setBackgroundResource(R.drawable.button_shape_after);
 					btLiveShare.setVisibility(View.INVISIBLE);
 					
 					Bitmap bitmap;
